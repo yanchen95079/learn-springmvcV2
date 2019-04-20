@@ -36,7 +36,7 @@ public class YCMethodInvocation implements YCJoinPoint {
         this.arguments = arguments;
         this.interceptorsAndDynamicMethodMatchers = interceptorsAndDynamicMethodMatchers;
     }
-
+    @Override
     public Object proceed() throws Throwable {
         //如果Interceptor执行完了，则执行joinPoint
         if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {

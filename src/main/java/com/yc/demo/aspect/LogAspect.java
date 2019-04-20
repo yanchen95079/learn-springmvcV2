@@ -37,5 +37,8 @@ public class LogAspect {
                 "\nArgs:" + Arrays.toString(joinPoint.getArguments()) +
                 "\nThrows:" + ex.getMessage());
     }
+    public void around(YCJoinPoint joinPoint) throws Throwable {
+        System.out.println("环绕");
 
+    }
 }

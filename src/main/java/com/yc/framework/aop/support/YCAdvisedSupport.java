@@ -2,6 +2,7 @@ package com.yc.framework.aop.support;
 
 import com.yc.framework.aop.aspect.YCAfterReturningAdviceInterceptor;
 import com.yc.framework.aop.aspect.YCAfterThrowingAdviceInterceptor;
+import com.yc.framework.aop.aspect.YCAroundAdviceInterceptor;
 import com.yc.framework.aop.aspect.YCMethodBeforeAdviceInterceptor;
 import com.yc.framework.aop.config.YCAopConfig;
 
@@ -104,6 +105,11 @@ public class YCAdvisedSupport {
                     if(!(null == config.getAspectAfter() || "".equals(config.getAspectAfter()))) {
                         //创建一个Advivce
                         advices.add(new YCAfterReturningAdviceInterceptor(aspectMethods.get(config.getAspectAfter()),aspectClass.newInstance()));
+                    }
+                    //around
+                    if(!(null == config.getAspectAround() || "".equals(config.getAspectAround()))) {
+                        //创建一个Advivce
+                        advices.add(new YCAroundAdviceInterceptor(aspectMethods.get(config.getAspectAround()),aspectClass.newInstance()));
                     }
                     //afterThrowing
                     if(!(null == config.getAspectAfterThrow() || "".equals(config.getAspectAfterThrow()))) {

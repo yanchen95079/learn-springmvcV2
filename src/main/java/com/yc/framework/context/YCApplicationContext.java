@@ -134,6 +134,7 @@ public class YCApplicationContext extends YCDefaultListableBeanFactory implement
         config.setAspectClass(this.reader.getConfig().getProperty("aspectClass"));
         config.setAspectBefore(this.reader.getConfig().getProperty("aspectBefore"));
         config.setAspectAfter(this.reader.getConfig().getProperty("aspectAfter"));
+        config.setAspectAround(this.reader.getConfig().getProperty("aspectAround"));
         config.setAspectAfterThrow(this.reader.getConfig().getProperty("aspectAfterThrow"));
         config.setAspectAfterThrowingName(this.reader.getConfig().getProperty("aspectAfterThrowingName"));
         return new YCAdvisedSupport(config);

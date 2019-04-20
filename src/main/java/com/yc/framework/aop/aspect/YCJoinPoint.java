@@ -16,4 +16,5 @@ public interface YCJoinPoint {
     void setUserAttribute(String key, Object value);
 
     Object getUserAttribute(String key);
+    public Object proceed() throws Throwable;
 }

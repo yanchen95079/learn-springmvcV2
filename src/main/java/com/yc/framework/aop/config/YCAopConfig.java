@@ -17,5 +17,5 @@ public class YCAopConfig {
     private String aspectClass;
     private String aspectAfterThrow;
     private String aspectAfterThrowingName;
-
+    private String aspectAround;
 }
