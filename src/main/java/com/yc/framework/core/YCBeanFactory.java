@@ -17,5 +17,6 @@ public interface YCBeanFactory {
      * @author 闫晨(chen.yan@ucarinc.com)
      * @since 2019/4/11 10:02
      */
-    Object getBean(String beanName);
+    Object getBean(String beanName)throws Exception;
+    Object getBean(Class<?> beanClass) throws Exception;
 }

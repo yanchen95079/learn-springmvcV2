@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Queue;
 
 /**
  * @author Yanchen
@@ -20,34 +19,37 @@ public class YCBeanDefinitionReader {
     private Properties config=new Properties();
     //固定配置文件中的key，相对于xml的规范
     private final String SCAN_PACKAGE = "scanPackage";
-    private List<String> registyBeanClasses;
+    private List<String> registyBeanClasses=new ArrayList<String>();
 
     public YCBeanDefinitionReader(String... locations){
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(locations[0].replace("classpath:", ""));
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(locations[0].replace("classpath:",""));
         try {
-            config.load(resourceAsStream);
-            doScanner(config.getProperty(SCAN_PACKAGE));
+            config.load(is);
+
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            if(resourceAsStream!=null){
+            if(is!=null){
                 try {
-                    resourceAsStream.close();
+                    is.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        doScanner(config.getProperty(SCAN_PACKAGE));
     }
 
     private void doScanner(String scanPackage) {
-        URL url = this.getClass().getClassLoader()
-                .getResource("/" + scanPackage.replaceAll("\\.", "/"));
+        //转换为文件路径，实际上就是把.替换为/就OK了
+        //this.getClass()
+//        this.getClass().getClassLoader()
+        URL url = this.getClass().getResource("/" + scanPackage.replaceAll("\\.","/"));
         File classPath = new File(url.getFile());
         for (File file : classPath.listFiles()) {
             if(file.isDirectory()){
-                doScanner(scanPackage+"."+file.getName());
-            }else {
+                doScanner(scanPackage + "." + file.getName());
+            }else{
                 if(!file.getName().endsWith(".class")){ continue;}
                 String className = (scanPackage + "." + file.getName().replace(".class",""));
                 registyBeanClasses.add(className);
